@@ -490,16 +490,14 @@ int eloop_register_signal_reconfig(eloop_signal_handler handler,
 
 void eloop_run(void)
 {
-	fd_set *rfds, *wfds, *efds;
+	fd_set rfds, wfds, efds;
 	int res;
 	struct timeval _tv;
 	struct os_time tv, now;
 
-	rfds = os_malloc(sizeof(*rfds));
-	wfds = os_malloc(sizeof(*wfds));
-	efds = os_malloc(sizeof(*efds));
-	if (rfds == NULL || wfds == NULL || efds == NULL)
-		goto out;
+	FD_ZERO(&rfds);
+	FD_ZERO(&wfds);
+	FD_ZERO(&efds);
 
 	while (!eloop.terminate &&
 	       (!dl_list_empty(&eloop.timeout) || eloop.readers.count > 0 ||
@@ -517,14 +515,13 @@ void eloop_run(void)
 			_tv.tv_usec = tv.usec;
 		}
 
-		eloop_sock_table_set_fds(&eloop.readers, rfds);
-		eloop_sock_table_set_fds(&eloop.writers, wfds);
-		eloop_sock_table_set_fds(&eloop.exceptions, efds);
-		res = select(eloop.max_sock + 1, rfds, wfds, efds,
+		eloop_sock_table_set_fds(&eloop.readers, &rfds);
+		eloop_sock_table_set_fds(&eloop.writers, &wfds);
+		eloop_sock_table_set_fds(&eloop.exceptions, &efds);
+		res = select(eloop.max_sock + 1, &rfds, &wfds, &efds,
 			     timeout ? &_tv : NULL);
 		if (res < 0 && errno != EINTR && errno != 0) {
 			perror("select");
-			goto out;
 		}
 		eloop_process_pending_signals();
 
@@ -547,15 +544,10 @@ void eloop_run(void)
 		if (res <= 0)
 			continue;
 
-		eloop_sock_table_dispatch(&eloop.readers, rfds);
-		eloop_sock_table_dispatch(&eloop.writers, wfds);
-		eloop_sock_table_dispatch(&eloop.exceptions, efds);
+		eloop_sock_table_dispatch(&eloop.readers, &rfds);
+		eloop_sock_table_dispatch(&eloop.writers, &wfds);
+		eloop_sock_table_dispatch(&eloop.exceptions, &efds);
 	}
-
-out:
-	os_free(rfds);
-	os_free(wfds);
-	os_free(efds);
 }
 
 
