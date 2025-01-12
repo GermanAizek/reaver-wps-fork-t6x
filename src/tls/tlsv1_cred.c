@@ -110,8 +110,9 @@ static int tlsv1_add_cert(struct x509_certificate **chain,
 	wpa_printf(MSG_DEBUG, "TLSv1: Converting PEM format certificate into "
 		   "DER format");
 
+	size_t len_cert = os_strlen(pem_cert_begin);
 	while (pos) {
-		pos += os_strlen(pem_cert_begin);
+		pos += len_cert;
 		end = search_tag(pem_cert_end, pos, buf + len - pos);
 		if (end == NULL) {
 			wpa_printf(MSG_INFO, "TLSv1: Could not find PEM "

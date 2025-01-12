@@ -902,7 +902,8 @@ iw_protocol_compare(const char *	protocol1,
       int		is5g2 = 0;
 
       /* Check if we find the magic letters telling it's DS compatible */
-      for(i = 0; i < strlen(dot11_ds); i++)
+  	  size_t lenDs = strlen(dot11_ds);
+      for(i = 0; i < lenDs; i++)
 	{
 	  if(strchr(sub1, dot11_ds[i]) != NULL)
 	    isds1 = 1;
@@ -913,7 +914,8 @@ iw_protocol_compare(const char *	protocol1,
 	return(1);
 
       /* Check if we find the magic letters telling it's 5GHz compatible */
-      for(i = 0; i < strlen(dot11_5g); i++)
+  	  size_t len5g = strlen(dot11_5g);
+      for(i = 0; i < len5g; i++)
 	{
 	  if(strchr(sub1, dot11_5g[i]) != NULL)
 	    is5g1 = 1;
@@ -1293,13 +1295,14 @@ iw_get_stats(int		skfd,
       if(f==NULL)
 	return -1;
       /* Loop on all devices */
+  	  size_t len_ifname = strlen(ifname);
       while(fgets(buf,255,f))
 	{
 	  bp=buf;
 	  while(*bp&&isspace(*bp))
 	    bp++;
 	  /* Is it the good device ? */
-	  if(strncmp(bp,ifname,strlen(ifname))==0 && bp[strlen(ifname)]==':')
+	  if(strncmp(bp,ifname,len_ifname)==0 && bp[len_ifname]==':')
 	    {
 	      /* Skip ethX: */
 	      bp=strchr(bp,':');

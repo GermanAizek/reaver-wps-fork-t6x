@@ -263,7 +263,8 @@ int is_valid_pin(char *pin)
         return 0;
 
     int i;
-    for (i = 0; i < strlen(pin); i++)
+	size_t len = strlen(pin);
+    for (i = 0; i < len; i++)
     {
          if(!isdigit(pin[i]))
              return 0;

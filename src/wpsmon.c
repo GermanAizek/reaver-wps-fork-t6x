@@ -296,6 +296,7 @@ int wash_main(int argc, char *argv[])
 	 * call to monitor() will block indefinitely. If capture files were specified, this will loop through each file specified
 	 * on the command line and monitor() will return after each file has been processed.
 	 */
+	size_t len_lastarg = strlen(last_optarg);
 	for(i=argc-1; i>0; i--)
 	{
 		/* If the source is a pcap file, get the file name from the command line */
@@ -303,7 +304,7 @@ int wash_main(int argc, char *argv[])
 		{
 			/* If we've gotten to the arguments, we're done */
 			if((argv[i][0] == '-') ||
-			   (last_optarg && (memcmp(argv[i], last_optarg, strlen(last_optarg)) == 0))
+			   (last_optarg && (memcmp(argv[i], last_optarg, len_lastarg) == 0))
 			)
 			{
 				break;
