@@ -59,23 +59,23 @@ void globule_deinit()
 	{
 		for(i=0; i<P1_SIZE; i++)
                 {
-                        if(globule->p1[i]) free(globule->p1[i]);
+                        free(globule->p1[i]);
                 }
                 for(i=0; i<P2_SIZE; i++)
                 {
-                        if(globule->p2[i]) free(globule->p2[i]);
+                        free(globule->p2[i]);
                 }
 
 		if(globule->wps) wps_deinit(globule->wps);
 		if(globule->handle) pcap_close(globule->handle);
-		if(globule->pin) free(globule->pin);
-		if(globule->iface) free(globule->iface);
-		if(globule->ssid) free(globule->ssid);
-		if(globule->session) free(globule->session);
-		if(globule->static_p1) free(globule->static_p1);
-		if(globule->static_p2) free(globule->static_p2);
+		free(globule->pin);
+		free(globule->iface);
+		free(globule->ssid);
+		free(globule->session);
+		free(globule->static_p1);
+		free(globule->static_p2);
 		if(globule->fp) fclose(globule->fp);
-		if(globule->exec_string) free(globule->exec_string);
+		free(globule->exec_string);
 
 		if(globule->output_fd != -1) close(globule->output_fd);
 
@@ -103,7 +103,7 @@ int get_last_wps_state()
 
 void set_session(char *value)  
 { 
-	if(globule->session) free(globule->session);
+	free(globule->session);
 	globule->session = (value) ? strdup(value) : NULL;
 }
 char *get_session()    
@@ -139,7 +139,7 @@ void set_p1(int index, char *value)
 {
 	if(index < P1_SIZE)
 	{
-		if(globule->p1[index]) free(globule->p1[index]);
+		free(globule->p1[index]);
 		globule->p1[index] = (value) ? strdup(value) : NULL;
 	}
 }
@@ -156,7 +156,7 @@ void set_p2(int index, char *value)
 {
 	if(index < P2_SIZE)
 	{
-		if(globule->p2[index]) free(globule->p2[index]);
+		free(globule->p2[index]);
 		globule->p2[index] = (value) ? strdup(value) : NULL;
 	}
 }
@@ -414,7 +414,7 @@ void set_ssid(char *value)
 
 	if(value)
 	{
-		if(strlen(value) > 0)
+		if(value[0] != '\0')
 		{
 			globule->ssid = strdup(value);
 		}
@@ -429,10 +429,7 @@ void set_iface(char *value)
 {
 	if(value)
 	{
-		if(globule->iface)
-		{
-			free(globule->iface);
-		}
+		free(globule->iface);
 
 		globule->iface = strdup(value);
 	}
@@ -449,7 +446,7 @@ char *get_iface()
 
 void set_pin(char *value)
 {
-	if(globule->pin) free(globule->pin);
+	free(globule->pin);
 	globule->pin = (value) ? strdup(value) : NULL;
 }
 char *get_pin()
@@ -459,7 +456,7 @@ char *get_pin()
 
 void set_static_p1(char *value)
 {
-	if(globule->static_p1) free(globule->static_p1);
+	free(globule->static_p1);
 	globule->static_p1 = (value) ? strdup(value) : NULL;
 }
 
@@ -470,7 +467,7 @@ char *get_static_p1(void)
 
 void set_static_p2(char *value)
 {
-	if(globule->static_p2) free(globule->static_p2);
+	free(globule->static_p2);
 	globule->static_p2 = (value) ? strdup(value) : NULL;
 }
 

@@ -255,10 +255,7 @@ int wash_main(int argc, char *argv[])
 		/* Track the last optarg. This is used later when looping back through any specified pcap files. */
 		if(optarg)
 		{
-			if(last_optarg)
-			{
-				free(last_optarg);
-			}
+			free(last_optarg);
 
 			last_optarg = strdup(optarg);
 		}
@@ -336,7 +333,7 @@ int wash_main(int argc, char *argv[])
 
 end:
 	globule_deinit();
-	if(bssid) free(bssid);
+	free(bssid);
 	if(wpsmon.fp) fclose(wpsmon.fp);
 	return ret_val;
 }
@@ -550,7 +547,7 @@ void parse_wps_settings(const u_char *packet, struct pcap_pkthdr *header, char *
 					}
 					free(sane_ssid);
 
-					if (crack_progress) free(crack_progress);
+					free(crack_progress);
 				}
 
 				if(probe_sent)
@@ -574,7 +571,7 @@ void parse_wps_settings(const u_char *packet, struct pcap_pkthdr *header, char *
 						fflush(stdout);
 						free(json_string);
 
-						if (crack_progress) free(crack_progress);
+						free(crack_progress);
 					}
 				}
 	
@@ -586,7 +583,7 @@ void parse_wps_settings(const u_char *packet, struct pcap_pkthdr *header, char *
 	}
 
 end:
-	if(wps) free(wps);
+	free(wps);
 	set_bssid((unsigned char *) NULL_MAC);
 
 	return;

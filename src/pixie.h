@@ -21,13 +21,13 @@ extern struct pixie pixie;
 
 #define PIXIE_FREE(KEY) \
 	do { \
-		if(pixie.KEY) free(pixie.KEY); \
+		free(pixie.KEY); \
 		pixie.KEY = 0; \
 	} while(0)
 
 #define PIXIE_SET(KEY, VALUE) \
 	do { \
-		if(pixie.KEY) free(pixie.KEY); \
+		free(pixie.KEY); \
 		pixie.KEY = strdup(VALUE); \
 	} while(0)
 

@@ -649,8 +649,7 @@ iw_get_priv_info(int		skfd,
   while(maxpriv < 1000);
 
   /* Cleanup */
-  if(priv)
-    free(priv);
+  free(priv);
   *ppriv = NULL;
 
   return(-1);

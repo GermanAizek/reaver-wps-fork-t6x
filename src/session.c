@@ -293,7 +293,7 @@ char *get_crack_progress(unsigned char *mac)
 			}
 		}
 	}
-	if (bssid) free(bssid);
+	free(bssid);
 
 	return crack_progress;
 }

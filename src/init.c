@@ -110,8 +110,8 @@ struct wps_data *initialize_wps_data()
 		}
 	}
 end:
-	if(wpsconf) free(wpsconf);
-	if(reg_conf) free(reg_conf);
+	free(wpsconf);
+	free(reg_conf);
 	return wps;
 }
 

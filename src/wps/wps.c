@@ -126,8 +126,8 @@ void wps_deinit(struct wps_data *data)
 		wps_registrar_unlock_pin(data->wps->registrar, data->uuid_e);
 
 	/* @@@ Free wpa key and essid pointers @@@ */
-	if(data->key) free(data->key);
-	if(data->essid) free(data->essid);
+	free(data->key);
+	free(data->essid);
 
 	wpabuf_free(data->dh_privkey);
 	wpabuf_free(data->dh_pubkey_e);

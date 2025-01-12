@@ -343,7 +343,7 @@ void crack()
 		}
 	}
 
-	if(bssid) free(bssid);
+	free(bssid);
 	if(get_handle())
 	{
 		pcap_close(get_handle());
