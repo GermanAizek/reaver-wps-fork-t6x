@@ -42,26 +42,26 @@ struct eloop_timeout {
 };
 
 struct eloop_signal {
-	int sig;
 	void *user_data;
 	eloop_signal_handler handler;
+	int sig;
 	int signaled;
 };
 
 struct eloop_sock_table {
-	int count;
 	struct eloop_sock *table;
+	int count;
 	int changed;
 };
 
 struct eloop_data {
-	int max_sock;
-
 	struct eloop_sock_table readers;
 	struct eloop_sock_table writers;
 	struct eloop_sock_table exceptions;
 
 	struct dl_list timeout;
+
+	int max_sock;
 
 	int signal_count;
 	struct eloop_signal *signals;

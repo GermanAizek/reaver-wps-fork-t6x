@@ -32,9 +32,9 @@
 struct wps_uuid_pin {
 	struct dl_list list;
 	u8 uuid[WPS_UUID_LEN];
-	int wildcard_uuid;
 	u8 *pin;
 	size_t pin_len;
+	int wildcard_uuid;
 #define PIN_LOCKED BIT(0)
 #define PIN_EXPIRES BIT(1)
 	int flags;

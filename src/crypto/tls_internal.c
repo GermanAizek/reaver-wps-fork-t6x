@@ -26,8 +26,8 @@
 static int tls_ref_count = 0;
 
 struct tls_global {
-	int server;
 	struct tlsv1_credentials *server_cred;
+	int server;
 	int check_crl;
 };
 

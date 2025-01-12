@@ -9,24 +9,24 @@
 /**
  * struct ieee80211_radiotap_iterator - tracks walk thru present radiotap args
  * @rtheader: pointer to the radiotap header we are walking through
- * @max_length: length of radiotap header in cpu byte ordering
  * @this_arg_index: IEEE80211_RADIOTAP_... index of current arg
+ * @max_length: length of radiotap header in cpu byte ordering
  * @this_arg: pointer to current radiotap arg
- * @arg_index: internal next argument index
  * @arg: internal next argument pointer
  * @next_bitmap: internal pointer to next present u32
+ * @arg_index: internal next argument index
  * @bitmap_shifter: internal shifter for curr u32 bitmap, b0 set == arg present
  */
 
 struct ieee80211_radiotap_iterator {
 	struct ieee80211_radiotap_header *rtheader;
+	unsigned char *this_arg;
 	int max_length;
 	int this_arg_index;
-	unsigned char *this_arg;
 
-	int arg_index;
 	unsigned char *arg;
 	uint32_t *next_bitmap;
+	int arg_index;
 	uint32_t bitmap_shifter;
 };
 

@@ -22,13 +22,13 @@
 
 
 struct pkcs5_params {
+	u8 salt[8];
+	size_t salt_len;
+	unsigned int iter_count;
 	enum pkcs5_alg {
 		PKCS5_ALG_UNKNOWN,
 		PKCS5_ALG_MD5_DES_CBC
 	} alg;
-	u8 salt[8];
-	size_t salt_len;
-	unsigned int iter_count;
 };
 
 

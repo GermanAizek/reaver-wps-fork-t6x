@@ -87,8 +87,8 @@ struct data_element
 
 struct global_variables
 {
-	int csv;
 	FILE *fp;
+	int csv;
 	int bssid_count;
 	unsigned char **bssids;
 } wpsmon;

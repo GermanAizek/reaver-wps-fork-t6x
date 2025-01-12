@@ -109,9 +109,9 @@ struct wps_config {
 	struct wps_context *wps;
 
 	/**
-	 * registrar - Whether this end is a Registrar
+	 * assoc_wps_ie: (Re)AssocReq WPS IE (in AP; %NULL if not AP)
 	 */
-	int registrar;
+	const struct wpabuf *assoc_wps_ie;
 
 	/**
 	 * pin - Enrollee Device Password (%NULL for Registrar or PBC)
@@ -124,14 +124,14 @@ struct wps_config {
 	size_t pin_len;
 
 	/**
+	 * registrar - Whether this end is a Registrar
+	 */
+	int registrar;
+
+	/**
 	 * pbc - Whether this is protocol run uses PBC
 	 */
 	int pbc;
-
-	/**
-	 * assoc_wps_ie: (Re)AssocReq WPS IE (in AP; %NULL if not AP)
-	 */
-	const struct wpabuf *assoc_wps_ie;
 
 	/**
 	 * new_ap_settings - New AP settings (%NULL if not used)
@@ -406,7 +406,6 @@ union wps_event_data {
 	 * struct wps_event_m2d - M2D event data
 	 */
 	struct wps_event_m2d {
-		u16 config_methods;
 		const u8 *manufacturer;
 		size_t manufacturer_len;
 		const u8 *model_name;
@@ -418,6 +417,7 @@ union wps_event_data {
 		const u8 *dev_name;
 		size_t dev_name_len;
 		const u8 *primary_dev_type; /* 8 octets */
+		u16 config_methods;
 		u16 config_error;
 		u16 dev_password_id;
 	} m2d;

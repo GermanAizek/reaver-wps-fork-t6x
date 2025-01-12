@@ -51,11 +51,11 @@ enum tls_fail_reason {
 
 union tls_event_data {
 	struct {
-		int depth;
 		const char *subject;
-		enum tls_fail_reason reason;
 		const char *reason_txt;
 		const struct wpabuf *cert;
+		int depth;
+		enum tls_fail_reason reason;
 	} cert_fail;
 
 	struct {
